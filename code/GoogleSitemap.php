@@ -221,7 +221,10 @@ class GoogleSitemap extends Object
 
         // todo migrate to extension hook or DI point for other modules to
         // modify state filters
-        if (class_exists('Translatable')) {
+        if (class_exists('Translatable') &&
+            (is_null(Config::inst()->get('GoogleSitemap', 'disable_locale_filter')) ||
+            filter_var(Config::inst()->get('GoogleSitemap', 'disable_locale_filter'), FILTER_VALIDATE_BOOLEAN) === true)
+        ) {
             Translatable::disable_locale_filter();
         }
 
