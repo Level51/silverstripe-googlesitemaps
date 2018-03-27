@@ -25,8 +25,9 @@ class GoogleSitemapExtension extends DataExtension
             }
         }
 
+        // Check if the custom "canViewInSitemap" method is implemented, fall back to the default canView
         if ($can) {
-            $can = $this->owner->canView();
+            $can = $this->owner->hasMethod('canViewInSitemap') ? $this->owner->canViewInSitemap() : $this->owner->canView();
         }
 
         if ($can) {
